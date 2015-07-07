@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<script src="bower_components/chance/chance.js"></script>
+	<script src="bower_components/pouchdb/dist/pouchdb.js"></script>
+	<!--<script src="bower_components/pouchdb/dist/pouchdb.min.js"></script>-->
+	<script src="pouchmark.js"></script>
+	<title>benchmark</title>
+</head>
+
+<body>
+	<table>
+		<tr>
+			<td>num</td>
+			<td id="num"></td>
+		</tr>
+		<tr>
+			<td>put (ms)</td>
+			<td id="ms_put"></td>
+		</tr>
+		<tr>
+			<td>get (ms)</td>
+			<td id="ms_get"></td>
+		</tr>
+		<!--<tr>-->
+			<!--<td>update (ms)</td>-->
+			<!--<td id="ms_update"></td>-->
+		<!--</tr>-->
+		<tr>
+			<td>delete (ms)</td>
+			<td id="ms_delete"></td>
+		</tr>
+		<tr>
+			<td>destroy (ms)</td>
+			<td id="ms_destroy"></td>
+		</tr>
+	</table>
+</body>
+
+</html>

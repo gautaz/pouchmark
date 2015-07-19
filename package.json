@@ -1,0 +1,24 @@
+{
+  "name": "pouchmark",
+  "version": "1.0.0",
+  "description": "pouchdb benchmarking",
+  "main": "main.js",
+  "scripts": {
+    "start": "node ./main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gautaz/pouchmark.git"
+  },
+  "keywords": [
+    "pouchdb",
+    "benchmark"
+  ],
+  "author": "gautaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gautaz/pouchmark/issues"
+  },
+  "homepage": "https://github.com/gautaz/pouchmark"
+}

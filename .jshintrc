@@ -1,0 +1,89 @@
+{
+
+	/*
+	* ENVIRONMENTS
+	* =================
+	*/
+
+	// Define globals exposed by Node.js.
+	"node": true,
+
+	// Define globals exposed by modern browsers.
+	"browser": true,
+
+	/*
+	 * ENFORCING OPTIONS
+	 * =================
+	 */
+
+	// Warn about "non-breaking whitespace" characters.
+	"nonbsp": true,
+
+	// Allow expressions as statement.
+	"expr": true,
+
+	// Do not leave trailing whitespace.
+	"trailing": true,
+
+	// Disallow the extension of native object prototypes.
+	"freeze": true,
+
+	// Prohibit use of == and != in favor of === and !==.
+	"eqeqeq": true,
+
+	// Prohibit use of a variable before it is defined.
+	"latedef": true,
+
+	// Enforce placing 'use strict' at the top function scope
+	"strict": true,
+
+	// Prohibit use of explicitly undeclared variables.
+	"undef": true,
+
+	/*
+	 * RELAXING OPTIONS
+	 * =================
+	 */
+
+	// Suppresses warnings about missing semicolons, but only when
+	// the semicolon is omitted for the last statement in a one-line block
+	// eg: var name = (function() { return 'Anton' }());
+	"lastsemic": true,
+
+	// No warning for curly braces around blocks in loops and conditionals.
+	// eg: if (stuff) console.log('only one instruction here plz');
+	"curly": false,
+
+	// No warning when variables are defined but never used.
+	"unused": false,
+
+	/*
+	 * CODE STYLE RELATED
+	 *
+	 * @Deprecated in JSHINT
+	 * use http://jscs.info in the future
+	 * ==================================
+	 */
+
+	// Force all variable names to use either camelCase style 
+	// or UPPER_CASE with underscores.
+	"camelcase": true,
+
+	// Require capitalized names for constructor functions
+	"newcap": true,
+
+	// Enforce use of single quotation marks for strings.
+	"quotmark": "single",
+
+	// Enforce tab width of 4 spaces or 1 tab.
+	"indent": 4,
+
+	// Maximum line length
+	"maxlen": 120,
+
+	// Suppresses warnings about comma-first coding.
+	"laxcomma": true,
+
+	// Suppresses warnings about possibly unsafe line breakings.
+	"laxbreak": true
+}

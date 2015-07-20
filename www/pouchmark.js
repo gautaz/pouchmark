@@ -34,25 +34,38 @@
 	for (index = 0; index < numDocs; ++index) {
 		var doc = createDoc();
 		ids.push(doc._id);
-		puts.push(db.put(doc));
+		// puts.push(db.put(doc));
+		puts.push(doc);
 	}
-
-	document.addEventListener('DOMContentLoaded', function() {
+	
+	// db.bulkDocs(puts);
+	document.addEventListener("DOMContentLoaded", function() {
 		document.getElementById('num').innerHTML = numDocs;
-		Promise.all(puts).then(function() {
-			console.log('get');
-			var gets = [];
+		start = new Date();
+		// Promise.all(puts).then(function() {
+		db.bulkDocs(puts).then(function() {
 			document.getElementById('ms_put').innerHTML = new Date() - start;
+
+			console.log('bulk get');
 			start = new Date();
+			return db.allDocs({ include_docs: true });
+		}).then(function() {
+			document.getElementById('ms_bulk_get').innerHTML = new Date() - start;
+
+			console.log('get');
+			start = new Date();
+			var gets = [];
 			for (index = 0; index < ids.length; ++index) {
 				gets.push(db.get(ids[index]));
 			}
 			return Promise.all(gets);
 		}).then(function(getArray) {
-			console.log('update');
-			var updates = [];
 			document.getElementById('ms_get').innerHTML = new Date() - start;
+
+			console.log('updates');
 			start = new Date();
+
+			var updates = [];
 			for (index = 0; index < getArray.length; ++index) {
 				updates.push(db.put({
 					_id: getArray[index]._id,
@@ -62,19 +75,17 @@
 			}
 			return Promise.all(updates);
 		}).then(function(updateArray) {
-			var gets = [];
 			document.getElementById('ms_update').innerHTML = new Date() - start;
-			for (index = 0; index < ids.length; ++index) {
-				gets.push(db.get(ids[index]));
-			}
-			return Promise.all(gets);
-		}).then(function(getArray) {
+			return db.allDocs();
+		}).then(function(elements) {
 			console.log('remove');
+			
 			var removes = [];
 			start = new Date();
-			for (index = 0; index < getArray.length; ++index) {
-				removes.push(db.remove(getArray[index]));
+			for (index = 0; elements < elements.length; ++index) {
+				removes.push(db.remove(elements[index]));
 			}
+			
 			return Promise.all(removes);
 		}).then(function() {
 			console.log('destroy');

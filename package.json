@@ -4,7 +4,7 @@
   "description": "pouchdb benchmarking",
   "main": "main.js",
   "scripts": {
-    "start": "node ./main.js",
+    "start": "node-dev ./main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/gautaz/pouchmark/issues"
   },
-  "homepage": "https://github.com/gautaz/pouchmark"
+  "homepage": "https://github.com/gautaz/pouchmark",
+  "devDependencies": {
+    "node-dev": "^2.6.2"
+  }
 }

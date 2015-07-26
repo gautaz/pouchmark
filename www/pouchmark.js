@@ -44,12 +44,43 @@
 		start = new Date();
 		// Promise.all(puts).then(function() {
 		db.bulkDocs(puts).then(function() {
-			document.getElementById('ms_put').innerHTML = new Date() - start;
+			document.getElementById('ms_bulk_put').innerHTML = new Date() - start;
 
 			console.log('bulk get');
 			start = new Date();
+			return db.allDocs();
+		}).then(function() {
+			document.getElementById('ms_bulk_get').innerHTML = new Date() - start;
+
+			console.log('bulk get include docs');
+			start = new Date();
 			return db.allDocs({ include_docs: true });
-		})
+		}).then(function(result) {
+			document.getElementById('ms_bulk_get_include_docs').innerHTML = new Date() - start;
+			console.log('remove');
+			var elements = result.rows;
+			var removes = [];
+			start = new Date();
+			for (index = 0; elements < elements.length; ++index) {
+				removes.push(db.remove(elements[index]));
+			}
+			
+			return Promise.all(removes);
+		}).then(function() {
+			document.getElementById('ms_delete').innerHTML = new Date() - start;
+
+			console.log('destroy');
+			start = new Date();
+			return db.destroy();
+		}).then(function() {
+			document.getElementById('ms_destroy').innerHTML = new Date() - start;
+			start = new Date();
+		}).catch(function(err) {
+			console.log(new Date(), err);
+		});
+	});
+})();
+
 		// .then(function() {
 		// 	document.getElementById('ms_bulk_get').innerHTML = new Date() - start;
 
@@ -80,28 +111,3 @@
 		// 	document.getElementById('ms_update').innerHTML = new Date() - start;
 		// 	return db.allDocs();
 		// })
-		.then(function(result) {
-			document.getElementById('ms_bulk_get').innerHTML = new Date() - start;
-			console.log('remove');
-			var elements = result.rows;
-			var removes = [];
-			start = new Date();
-			for (index = 0; elements < elements.length; ++index) {
-				removes.push(db.remove(elements[index]));
-			}
-			
-			return Promise.all(removes);
-		}).then(function() {
-			document.getElementById('ms_delete').innerHTML = new Date() - start;
-
-			console.log('destroy');
-			start = new Date();
-			return db.destroy();
-		}).then(function() {
-			document.getElementById('ms_destroy').innerHTML = new Date() - start;
-			start = new Date();
-		}).catch(function(err) {
-			console.log(new Date(), err);
-		});
-	});
-})();

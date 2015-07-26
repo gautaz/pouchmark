@@ -49,37 +49,41 @@
 			console.log('bulk get');
 			start = new Date();
 			return db.allDocs({ include_docs: true });
-		}).then(function() {
+		})
+		// .then(function() {
+		// 	document.getElementById('ms_bulk_get').innerHTML = new Date() - start;
+
+		// 	console.log('get');
+		// 	start = new Date();
+		// 	var gets = [];
+		// 	for (index = 0; index < ids.length; ++index) {
+		// 		gets.push(db.get(ids[index]));
+		// 	}
+		// 	return Promise.all(gets);
+		// })
+		// .then(function(getArray) {
+		// 	document.getElementById('ms_get').innerHTML = new Date() - start;
+
+		// 	console.log('updates');
+		// 	start = new Date();
+
+		// 	var updates = [];
+		// 	for (index = 0; index < getArray.length; ++index) {
+		// 		updates.push(db.put({
+		// 			_id: getArray[index]._id,
+		// 			_rev: getArray[index]._rev,
+		// 			amount: Math.floor(Math.random() * 100000 - 50000) / 100,
+		// 		}));
+		// 	}
+		// 	return Promise.all(updates);
+		// }).then(function(updateArray) {
+		// 	document.getElementById('ms_update').innerHTML = new Date() - start;
+		// 	return db.allDocs();
+		// })
+		.then(function(result) {
 			document.getElementById('ms_bulk_get').innerHTML = new Date() - start;
-
-			console.log('get');
-			start = new Date();
-			var gets = [];
-			for (index = 0; index < ids.length; ++index) {
-				gets.push(db.get(ids[index]));
-			}
-			return Promise.all(gets);
-		}).then(function(getArray) {
-			document.getElementById('ms_get').innerHTML = new Date() - start;
-
-			console.log('updates');
-			start = new Date();
-
-			var updates = [];
-			for (index = 0; index < getArray.length; ++index) {
-				updates.push(db.put({
-					_id: getArray[index]._id,
-					_rev: getArray[index]._rev,
-					amount: Math.floor(Math.random() * 100000 - 50000) / 100,
-				}));
-			}
-			return Promise.all(updates);
-		}).then(function(updateArray) {
-			document.getElementById('ms_update').innerHTML = new Date() - start;
-			return db.allDocs();
-		}).then(function(elements) {
 			console.log('remove');
-			
+			var elements = result.rows;
 			var removes = [];
 			start = new Date();
 			for (index = 0; elements < elements.length; ++index) {
@@ -88,8 +92,9 @@
 			
 			return Promise.all(removes);
 		}).then(function() {
-			console.log('destroy');
 			document.getElementById('ms_delete').innerHTML = new Date() - start;
+
+			console.log('destroy');
 			start = new Date();
 			return db.destroy();
 		}).then(function() {

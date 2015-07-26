@@ -23,7 +23,7 @@
 	};
 
 	window.PouchDB = PouchDB;
-	var db = new PouchDB('benchmark');
+	var db = new PouchDB('benchmark', { size: 100 });
 	var puts = [];
 	var ids = [];
 	var start = new Date();

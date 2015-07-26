@@ -28,6 +28,6 @@ var httpServer = http.createServer(function (req, res) {
 	});
 });
 
-httpServer.listen(port, '127.0.0.1', function() {
+httpServer.listen(port, '0.0.0.0', function() {
 	console.log('benchmark available at http://127.0.0.1:' + port + '/index.html');
 });

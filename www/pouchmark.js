@@ -1,15 +1,15 @@
-(function() {
+(function () {
 	/* global chance, PouchDB, Promise */
 	'use strict';
 
-	var getParam = function(name) {
+	var getParam = function (name) {
 		name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
 		var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
 			results = regex.exec(location.search);
 		return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 	};
 
-	var createDoc = function() {
+	var createDoc = function () {
 		return {
 			_id: chance.guid(),
 			date: chance.date({
@@ -23,7 +23,7 @@
 	};
 
 	window.PouchDB = PouchDB;
-	var db = new PouchDB('benchmark');
+	var db = new PouchDB('benchmark', { size: 100 });
 	var puts = [];
 	var ids = [];
 	var start = new Date();
@@ -34,14 +34,16 @@
 	for (index = 0; index < numDocs; ++index) {
 		var doc = createDoc();
 		ids.push(doc._id);
+
 		// puts.push(db.put(doc));
 		puts.push(doc);
 	}
-	
+
 	// db.bulkDocs(puts);
-	document.addEventListener("DOMContentLoaded", function() {
+	document.addEventListener('DOMContentLoaded', function () {
 		document.getElementById('num').innerHTML = numDocs;
 		start = new Date();
+
 		// Promise.all(puts).then(function() {
 		db.bulkDocs(puts).then(function() {
 			document.getElementById('ms_bulk_put').innerHTML = new Date() - start;

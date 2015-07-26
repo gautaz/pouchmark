@@ -1,15 +1,15 @@
-(function() {
+(function () {
 	/* global chance, PouchDB, Promise */
 	'use strict';
 
-	var getParam = function(name) {
+	var getParam = function (name) {
 		name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
 		var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
 			results = regex.exec(location.search);
 		return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 	};
 
-	var createDoc = function() {
+	var createDoc = function () {
 		return {
 			_id: chance.guid(),
 			date: chance.date({
@@ -34,22 +34,25 @@
 	for (index = 0; index < numDocs; ++index) {
 		var doc = createDoc();
 		ids.push(doc._id);
+
 		// puts.push(db.put(doc));
 		puts.push(doc);
 	}
-	
+
 	// db.bulkDocs(puts);
-	document.addEventListener("DOMContentLoaded", function() {
+	document.addEventListener('DOMContentLoaded', function () {
 		document.getElementById('num').innerHTML = numDocs;
 		start = new Date();
+
 		// Promise.all(puts).then(function() {
-		db.bulkDocs(puts).then(function() {
+		db.bulkDocs(puts).then(function () {
 			document.getElementById('ms_put').innerHTML = new Date() - start;
 
 			console.log('bulk get');
 			start = new Date();
 			return db.allDocs({ include_docs: true });
 		})
+
 		// .then(function() {
 		// 	document.getElementById('ms_bulk_get').innerHTML = new Date() - start;
 
@@ -80,7 +83,7 @@
 		// 	document.getElementById('ms_update').innerHTML = new Date() - start;
 		// 	return db.allDocs();
 		// })
-		.then(function(result) {
+		.then(function (result) {
 			document.getElementById('ms_bulk_get').innerHTML = new Date() - start;
 			console.log('remove');
 			var elements = result.rows;
@@ -91,17 +94,18 @@
 			}
 			
 			return Promise.all(removes);
-		}).then(function() {
+		}).then(function () {
 			document.getElementById('ms_delete').innerHTML = new Date() - start;
 
 			console.log('destroy');
 			start = new Date();
 			return db.destroy();
-		}).then(function() {
+		}).then(function () {
 			document.getElementById('ms_destroy').innerHTML = new Date() - start;
 			start = new Date();
-		}).catch(function(err) {
+		}).catch(function (err) {
 			console.log(new Date(), err);
 		});
 	});
 })();
+

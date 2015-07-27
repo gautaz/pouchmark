@@ -17,6 +17,7 @@ Test par Manu sur Google Nexus 5 (Android 5.1.1)
     delete (ms)  22
     destroy (ms) 3128
 
+# Résultats benchmark du 27/07/2015
 Test par Manu sur Intel Core i7-3771 @ 3.40Ghz (8Go RAM)
 
     num	20000

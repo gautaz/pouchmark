@@ -5,8 +5,6 @@ var path = require('path');
 var fs = require('fs');
 var url = require('url');
 
-var port = process.argv[2] || 20096;
-
 var httpServer = http.createServer(function (req, res) {
 	var uri = url.parse(req.url);
 	var location = path.join(__dirname, 'www', uri.pathname);
@@ -28,8 +26,9 @@ var httpServer = http.createServer(function (req, res) {
 	});
 });
 
-httpServer.listen(process.env.PORT, process.env.IP, function() {
-	console.log('benchmark available at ' +  process.env.IP + ' ' +  process.env.PORT + '/index.html');
-// httpServer.listen(port, '0.0.0.0', function() {
-// 	console.log('benchmark available at http://127.0.0.1:' + port + '/index.html');
+var listeningAddress = process.env.IP || '0.0.0.0';
+var listeningPort = process.env.PORT || 20096;
+
+httpServer.listen(listeningPort, listeningAddress, function() {
+	console.log('benchmark available at http://' + listeningAddress + ':' +  listeningPort + '/index.html');
 });

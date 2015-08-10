@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<script src="bower_components/chance/chance.js"></script>
+	<script src="bower_components/lokijs/src/lokijs.js"></script>
+	<script type="text/javascript">var module=null;</script>
+	<script src="bower_components/lokijs/src/loki-indexed-adapter.js"></script>
+	<script src="lokimark.js"></script>
+	<title>benchmark</title>
+</head>
+
+<body>
+	<table>
+		<tr>
+			<td>num</td>
+			<td id="num"></td>
+		</tr>
+		<tr>
+			<td>bulk put (ms)</td>
+			<td id="ms_bulk_put"></td>
+		</tr>
+		<tr>
+			<td>bulk get (ms)</td>
+			<td id="ms_bulk_get"></td>
+		</tr>
+		<tr>
+			<td>bulk get include docs (ms)</td>
+			<td id="ms_bulk_get_include_docs"></td>
+		</tr>
+
+		<tr>
+			<td>general balance (ms)</td>
+			<td id="ms_mapreduce"></td>
+		</tr>
+		<tr>
+			<td>general balance 2 (ms)</td>
+			<td id="ms_mapreduce2"></td>
+		</tr>
+		<tr>
+			<td>delete (ms)</td>
+			<td id="ms_delete"></td>
+		</tr>
+		<tr>
+			<td>destroy (ms)</td>
+			<td id="ms_destroy"></td>
+		</tr>
+	</table>
+</body>
+
+</html>

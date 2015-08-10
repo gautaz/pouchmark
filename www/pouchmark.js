@@ -115,8 +115,6 @@
 			for (index = 0; elements < elements.length; ++index) {
 				removes.push(db.remove(elements[index]));
 			}
-
-			return Promise.all(removes);
 		}).then(function() {
 			document.getElementById('ms_delete').innerHTML = new Date() - start;
 

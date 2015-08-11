@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "pouchdb": "~4.0",
-    "chance": "~0.7.6"
+    "chance": "~0.7.6",
+    "lokijs": "*"
   }
 }

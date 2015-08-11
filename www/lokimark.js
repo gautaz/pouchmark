@@ -24,6 +24,7 @@
     
     var idbAdapter = new lokiIndexedAdapter('lokimark');
     var lokidb = new loki('loki', { adapter: idbAdapter });
+    var start;
     
     new Promise(function(resolve,reject) {
         document.addEventListener('DOMContentLoaded', resolve);
@@ -37,13 +38,15 @@
         });
     }).then(function(grantedBytes) {
         return new Promise(function(resolve, reject) {
-            lokidb.loadDatabase('entries',resolve);
-        });
-    }).then(function() {
-        return new Promise(function(resolve, reject) {
             setTimeout(resolve, 1);
         });
     }).then(function() {
+        return new Promise(function(resolve, reject) {
+            console.log("Chargement...");
+            lokidb.loadDatabase('entries',resolve);
+        });
+    }).then(function() {
+        console.log("Chargment terminé.");
         // if database did not exist it will be empty so I will intitialize here
         var db = lokidb.getCollection('entries');
         if (db === null) {
@@ -52,12 +55,11 @@
 
         var puts = [];
         var ids = [];
-        var start = new Date();
         var numDocs = parseInt(getParam('num'), 10) || 100;
         var index;
         var sum = 0.0;
     
-        console.log('put');
+        console.log('Génération aléatoire des docs');
         for (index = 0; index < numDocs; ++index) {
             var doc = createDoc();
             ids.push(doc._id);
@@ -69,6 +71,7 @@
         console.log("Sum init : " + sum);
 
         document.getElementById('num').innerHTML = numDocs;
+        console.log("put");
         start = new Date();
         
         for (var elt of puts) {
@@ -103,6 +106,23 @@
         });
     }).then(function() {
         console.log("Save successfull");
+        
+        if (confirm("Souhaitez vous supprimer la base ?")) {
+            var db = lokidb.getCollection('entries');
+            console.log('remove');
+            
+    		start = new Date();
+            for (let elt of db.find()) {
+                db.remove(elt);
+            }
+            document.getElementById('ms_delete').innerHTML = new Date() - start;
+    		console.log('destroy');
+    		start = new Date();
+    		idbAdapter.deleteDatabase('loki');
+    		document.getElementById('ms_destroy').innerHTML = new Date() - start;
+        }
+        
+        
     }).catch(function(error) {
         console.log("Erreur : " + error);
     });
@@ -119,11 +139,6 @@
     // 	}).then(function() {
     // 		document.getElementById('ms_delete').innerHTML = new Date() - start;
 
-    // 		console.log('destroy');
-    // 		start = new Date();
-    // 		return db.destroy();
-    // 	}).then(function() {
-    // 		document.getElementById('ms_destroy').innerHTML = new Date() - start;
     // 		start = new Date();
     // 	}).catch(function(err) {
     // 		console.log(new Date(), err);

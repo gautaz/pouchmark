@@ -1,7 +1,7 @@
 (function() {
     /* global chance, PouchDB, Promise */
     'use strict';
-
+    
     var getParam = function(name) {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
         var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
@@ -15,7 +15,7 @@
             date: chance.date({
                 year: Math.floor(Math.random() * 30 + 1980)
             }),
-            amount: Math.floor(Math.random() * 100000 - 50000) / 100,
+            amount: Big(Math.floor(Math.random() * 100000 - 50000) / 100),
             description: chance.sentence({
                 word: 7
             })
@@ -57,13 +57,13 @@
         var ids = [];
         var numDocs = parseInt(getParam('num'), 10) || 100;
         var index;
-        var sum = 0.0;
+        var sum = Big(0);
     
         console.log('Génération aléatoire des docs');
         for (index = 0; index < numDocs; ++index) {
             var doc = createDoc();
             ids.push(doc._id);
-            sum += doc.amount;
+            sum = sum.plus(doc.amount);
     
             puts.push(doc);
         }
@@ -96,7 +96,7 @@
                 return obj.amount;
             },
             function (array) {
-                return array.reduce(function(prec,cur) { return prec + cur; }, 0);
+                return array.reduce(function(prec,cur) { return Big(prec).plus(cur); }, Big(0));
             });
         document.getElementById('ms_mapreduce').innerHTML = new Date() - start;
         console.log("Balance with map/reduce : " + JSON.stringify(result));
@@ -121,8 +121,6 @@
     		idbAdapter.deleteDatabase('loki');
     		document.getElementById('ms_destroy').innerHTML = new Date() - start;
         }
-        
-        
     }).catch(function(error) {
         console.log("Erreur : " + error);
     });

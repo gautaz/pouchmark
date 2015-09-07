@@ -47,3 +47,23 @@ Test par Manu sur Chromebook Acer 15 (Core i3)
     general balance (ms)	24
     delete (ms)	2620
     destroy (ms)	0    
+    
+# Lokijs (avec big.js intégré pour la précision)
+## Résultats benchmark du 07/09/2015
+Test par Manu sur Intel Core i7-3771 @ 3.40Ghz (8Go RAM)
+
+    num	20000
+    bulk put (ms)	84
+    bulk get (ms)	1
+    bulk get include docs (ms)	
+    general balance (ms)	22
+    delete (ms)	97
+    destroy (ms)	0
+
+    num	100000
+    bulk put (ms)	477
+    bulk get (ms)	1
+    bulk get include docs (ms)	
+    general balance (ms)	154
+    delete (ms)	1535
+    destroy (ms)	0
